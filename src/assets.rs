@@ -544,7 +544,7 @@ impl NewableWithNameMap for FPackageIndex {
     fn new_n(reader: &mut ReaderCursor, _name_map: &NameMap, import_map: &ImportMap) -> ParserResult<Self> {
         let index = reader.read_i32::<LittleEndian>()?;
         let import = FPackageIndex::get_package(index, import_map);
-        
+
         Ok(Self {
             index,
             import,
@@ -2613,9 +2613,6 @@ fn get_export(export: &Box<dyn Any>) -> Option<&dyn PackageExport> {
     }
     if let Some(table) = export.downcast_ref::<UDataTable>() {
         return Some(table);
-    }
-    if let Some(mesh) = export.downcast_ref::<USkeletalMesh>() {
-        return Some(mesh);
     }
     if let Some(animation) = export.downcast_ref::<UAnimSequence>() {
         return Some(animation);

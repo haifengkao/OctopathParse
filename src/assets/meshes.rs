@@ -79,7 +79,7 @@ impl FPackedNormal {
     }
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug)]
 pub struct FVector2DHalf {
     x: f16,
     y: f16,
@@ -153,13 +153,13 @@ pub enum FStaticMeshVertexDataTangent {
     Low(Vec<TStaticMeshVertexTangent<FPackedNormal>>),
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug)]
 pub enum FStaticMeshVertexDataUV {
     High(Vec<TStaticMeshVertexUV<FVector2D>>),
     Low(Vec<TStaticMeshVertexUV<FVector2DHalf>>),
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug)]
 pub struct FStaticMeshVertexBuffer {
     num_tex_coords: i32,
     num_vertices: i32,
@@ -200,7 +200,7 @@ impl FStaticMeshVertexBuffer {
     pub fn get_tangents(&self) -> &FStaticMeshVertexDataTangent {
         &self.tangents
     }
-    
+
     pub fn get_texcoords(&self) -> &FStaticMeshVertexDataUV {
         &self.uvs
     }
@@ -601,7 +601,7 @@ impl NewableWithNameMap for FSkelMeshRenderSection {
     }
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug)]
 pub struct FSkeletalMeshRenderData {
     sections: Vec<FSkelMeshRenderSection>,
     indices: FMultisizeIndexContainer,
@@ -702,7 +702,7 @@ impl Newable for FMeshToMeshVertData {
     }
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug)]
 pub struct USkeletalMesh {
     super_object: UObject,
     imported_bounds: FBoxSphereBounds,
@@ -759,11 +759,5 @@ impl USkeletalMesh {
 
     pub fn get_skeleton(&self) -> &FReferenceSkeleton {
         &self.ref_skeleton
-    }
-}
-
-impl PackageExport for USkeletalMesh {
-    fn get_export_type(&self) -> &str {
-        "get_export_type"
     }
 }
