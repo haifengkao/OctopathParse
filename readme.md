@@ -1,4 +1,4 @@
-## Fortnite Asset Parser
+## Octopath Asset Parser
 
 This program is able to parse pak, uexp and uasset files, and offers way to manage them.
 
@@ -11,3 +11,7 @@ It offers four commands that can read these files
 Any operations on a pak file require that the `key.txt` file contains the encryption key for the pak file, as a hexadecimal string and no leading newline.
 
 Note however that there is limited support for all of the properties that can be serialized, and the parser may panic if it attempts to parse an unknown tag type.
+
+
+### Info
+Octopath 1 uses Unreal Engine 4.18
