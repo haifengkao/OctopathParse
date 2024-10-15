@@ -244,7 +244,7 @@ impl Newable for FIoChunkId {
             10 => EIoChunkType::ContainerHeader,
             _ => panic!("Unknown Chunk ID"),
         };
-        
+
 
         Ok(Self {
             id, index, chunk_type,
@@ -832,11 +832,13 @@ impl Extractor {
 
     pub fn new(path: &str, key: Option<&str>) -> ParserResult<Self> {
         let utoc_path = path.to_owned() + ".utoc";
+        println!("Opening: {}", utoc_path);
         let mut file = File::open(utoc_path)?;
+        println!("Opening done");
         let mut buffer = Vec::new();
         file.read_to_end(&mut buffer)?;
 
-        let utoc = UtocManager::new(&buffer, key)?;        
+        let utoc = UtocManager::new(&buffer, key)?;
 
         let ucas_reader = UcasReader::new(path, utoc.get_reader_data())?;
 

@@ -763,7 +763,7 @@ impl NewableWithNameMap for FPackageIndex {
     fn new_n(reader: &mut ReaderCursor, _name_map: &NameMap, import_map: &ImportMap) -> ParserResult<Self> {
         let index = reader.read_i32::<LittleEndian>()?;
         let import = FPackageIndex::get_package(index, import_map);
-        
+
         Ok(Self {
             index,
             import,
@@ -916,7 +916,7 @@ impl Newable for FText {
                     namespace: "".to_owned(),
                     key: "".to_owned(),
                     source_string: "".to_owned(),
-                    invariant: if invariant { read_string(reader)? } else { "".to_owned() } 
+                    invariant: if invariant { read_string(reader)? } else { "".to_owned() }
                 })
             },
             0 => Ok(Self {
@@ -1860,7 +1860,7 @@ impl UScriptArray {
             let err = |v| ParserError::add(v, format!("Array Item: {} of {} at {}", i, element_count, cpos));
             data.push(read_unversioned_tag(reader, name_map, import_map, mapping).map_err(err)?);
         }
-        
+
         Ok(Self {
             tag: None,
             data,
@@ -2498,7 +2498,7 @@ impl UObject {
                 properties.push(read_unversioned_property(reader, name_map, import_map, mapping)?);
             }
         }
-        
+
         Ok(Self {
             properties,
             export_index,
@@ -2782,7 +2782,7 @@ impl Package {
 
         let mut name_map = Vec::new();
         cursor.seek(SeekFrom::Start(summary.name_map_offset as u64))?;
-        
+
         while cursor.position() <= (summary.name_map_offset + summary.name_map_size) as u64 {
             name_map.push(read_short_string(&mut cursor)?);
         }
@@ -2795,7 +2795,7 @@ impl Package {
         for _i in 0..import_length {
             import_map.push(FPackageObjectIndex::new(&mut cursor)?);
         }
-        
+
         let mut export_map = Vec::new();
         while cursor.position() < summary.export_bundle_offset as u64 {
             export_map.push(FExportMapEntry::new(&mut cursor)?);
@@ -2854,10 +2854,12 @@ impl Package {
         let ubulk_file = file_path.to_owned() + ".ubulk";
 
         // read asset file
+        println!("Reading file: {}", asset_file);
         let mut asset = File::open(asset_file).map_err(|_v| ParserError::new(format!("Could not find file: {}", file_path)))?;
         let mut uasset_buf = Vec::new();
         asset.read_to_end(&mut uasset_buf)?;
 
+        println!("Reading file done");
         // read ubulk file (if exists)
         let ubulk_path = Path::new(&ubulk_file);
         let ubulk_buf = match metadata(ubulk_path).is_ok() {

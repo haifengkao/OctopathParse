@@ -49,15 +49,20 @@ fn cerr(message: &'static str) -> CommandResult {
 }
 
 fn serialize(params: &[String]) -> CommandResult {
+    println!("serialize");
     let path = match params.get(0) {
         Some(data) => data,
         None => return cerr("No path specified"),
     };
+    println!("Reading package...path: {}", path);
 
     let mut dispatch = dispatch::Extractor::new("paks/global", None)?;
     let global_data = dispatch.read_global()?;
 
+    println!("Reading package...global data read done");
+
     let package = assets::Package::from_file(path, &global_data)?;
+    println!("Reading package...done");
     let serial_package = serde_json::to_string(&package).unwrap();
     let mut file = fs::File::create(path.to_owned() + ".json").unwrap();
     file.write_all(serial_package.as_bytes()).unwrap();
@@ -315,6 +320,7 @@ fn locale(params: &[String]) -> CommandResult {
 }
 
 fn main() {
+    println!("Hello World!");
     let args: Vec<String> = env::args().collect();
     let command = args.get(1);
     let command = match command {
@@ -326,6 +332,7 @@ fn main() {
     };
     let params = &args[2..];
 
+    println!("params: {:?}", params);
     let err = match (*command).as_ref() {
         "serialize" => serialize(params),
         "filelist" => filelist(params),
