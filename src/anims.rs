@@ -4,7 +4,6 @@ use std::path::Path;
 use crate::meshes::*;
 use crate::meshes::gltf::*;
 use crate::assets::*;
-use crate::dispatch::FNameMap;
 
 pub fn decode_anim(package: Package, path: &str) -> ParserResult<GLTFContainer> {
     let filepath = Path::new(path);
@@ -185,7 +184,6 @@ fn get_skeleton_map(anim: &UAnimSequence) -> ParserResult<Vec<String>> {
         }
         acc
     }).unwrap();
-    let name_map = FNameMap::empty();
     let path = match property.get_data() {
         FPropertyTagType::ObjectProperty(import) => import.get_import(),
         _ => return Err(ParserError::new(format!("Skeleton unreadable format"))),
@@ -196,7 +194,7 @@ fn get_skeleton_map(anim: &UAnimSequence) -> ParserResult<Vec<String>> {
     };
 
     let skeleton_path = "skeletons/".to_owned() + path;
-    let package = Package::from_file(&skeleton_path, &name_map)?;
+    let package = Package::from_file(&skeleton_path)?;
     let skeleton = get_skeleton(package)?;
 
     let names = skeleton.get_reference().get_bone_info().iter().map(|v| v.get_name().to_owned()).collect();
