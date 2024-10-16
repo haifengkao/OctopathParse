@@ -16,7 +16,7 @@ Note however that there is limited support for all of the properties that can be
 ### Info
 Octopath 1 uses Unreal Engine 4.18
 
-To unpack .Pak of a Octopath Traveler Mod, use [UnrealPakTool](https://github.com/allcoolthingsatoneplace/UnrealPakTool)
+To unpack .Pak of a Octopath Traveler Mod, use [UnrealPakTool](https://github.com/allcoolthingsatoneplace/UnrealPakTool).
 Put the .Pak at the same folder of UnrealPakExtract.bat, then double click the bat to unpack it.
 
 To convert GameTextEn.uexp to json
