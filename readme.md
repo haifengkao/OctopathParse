@@ -15,3 +15,17 @@ Note however that there is limited support for all of the properties that can be
 
 ### Info
 Octopath 1 uses Unreal Engine 4.18
+
+To unpack .Pak of a Octopath Traveler Mod, use [UnrealPakTool](https://github.com/allcoolthingsatoneplace/UnrealPakTool)
+Put the .Pat at the same folder of UnrealPakExtract.bat, then double click the bat to unpack it.
+
+To convert GameTextEn.uexp to json
+type
+'john-wick-parse serialize <some path>/GameTextEN'
+
+GameTextEN.uexp and GameTextEN.uasset should be in the same folder
+
+[Journey end](https://www.nexusmods.com/octopathtraveler/mods/17) modified GameTextEn.uexp, but the file is corrupted. It cannot be converted into json by Octopath Asset Parser.
+
+A quick logging shows that there are 0xC01F at location 1404842 and 1405029 of GameTextEN.uexp, 0xC01F marks the start of a new record.
+The record length at 1404850 is 179(0xB3). A quick glance of other records shows 1404842 + 179 + 17 should be equal to the location of next record 1405029. But it equal to 1405038 instead. To fix the file corruption, I changed the length at 1404850 from 179 to 170(0xAA).
