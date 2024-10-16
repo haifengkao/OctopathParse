@@ -20,7 +20,9 @@ To unpack .Pak of a Octopath Traveler Mod, use [UnrealPakTool](https://github.co
 Put the .Pak at the same folder of UnrealPakExtract.bat, then double click the bat to unpack it.
 
 To convert GameTextEn.uexp to json
+
 type
+
  `john-wick-parse serialize <some path>/GameTextEN` 
 
 GameTextEN.uexp and GameTextEN.uasset should be in the same folder
